@@ -55,6 +55,7 @@ ollama-rs = { path = ".", features = [
     "stream",
     "headers",
     "tool-implementations",
+    "macros",
 ] }
 base64 = "0.22.1"
 fs2 = "0.4.3"

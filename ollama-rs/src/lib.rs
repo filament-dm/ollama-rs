@@ -13,6 +13,7 @@ pub mod generation;
 pub mod headers;
 pub mod history;
 pub mod models;
+pub mod react;
 
 /// A trait to try to convert some type into a [`Url`].
 ///
