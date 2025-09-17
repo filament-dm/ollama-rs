@@ -119,7 +119,7 @@ async fn test_react_coordinator_basic_iteration() {
             assert!(false);
         }
         Err(e) => {
-            assert!(false, "Ollama call failed: {:?}", e);
+            assert!(false, "Ollama call failed: {e:?}");
         }
     }
 }
@@ -163,12 +163,12 @@ async fn test_react_coordinator_multiple_steps() {
                 break;
             }
             Err(e) => {
-                assert!(false, "Step iteration should not fail: {:?}", e);
+                assert!(false, "Step iteration should not fail: {e:?}");
             }
         }
     }
 
-    println!("Completed {} steps", step_count);
+    println!("Completed {step_count} steps");
     assert!(step_count >= 1);
 }
 
@@ -219,7 +219,7 @@ async fn test_react_coordinator_collect_all_steps() {
             }
         }
         Err(e) => {
-            assert!(false, "collect_all_steps should not fail: {:?}", e);
+            assert!(false, "collect_all_steps should not fail: {e:?}");
         }
     }
 }
@@ -252,13 +252,13 @@ async fn test_react_coordinator_max_iterations() {
                 break;
             }
             Err(e) => {
-                assert!(false, "Step iteration should not fail: {:?}", e);
+                assert!(false, "Step iteration should not fail: {e:?}");
             }
         }
     }
 
     assert!(step_count <= 2, "Should not exceed max iterations");
-    println!("Completed {} steps (max: 2)", step_count);
+    println!("Completed {step_count} steps (max: 2)");
 }
 
 #[tokio::test]
@@ -287,7 +287,7 @@ async fn test_react_coordinator_without_tools() {
             println!("No steps returned");
         }
         Err(e) => {
-            assert!(false, "Step should not fail: {:?}", e);
+            assert!(false, "Step should not fail: {e:?}");
         }
     }
 }

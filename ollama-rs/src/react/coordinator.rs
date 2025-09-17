@@ -167,9 +167,7 @@ impl<C: ChatHistory + Default> Coordinator<C> {
         }
 
         let system_prompt = self
-            .system_prompt
-            .as_ref()
-            .map(|s| s.as_str())
+            .system_prompt.as_deref()
             .unwrap_or(DEFAULT_SYSTEM_PROMPT);
 
         self.trajectory
@@ -178,7 +176,7 @@ impl<C: ChatHistory + Default> Coordinator<C> {
         self.is_initialized = true;
 
         if self.debug {
-            eprintln!("Coordinator started with prompt: {}", prompt);
+            eprintln!("Coordinator started with prompt: {prompt}");
         }
 
         Ok(())
@@ -261,7 +259,7 @@ impl<C: ChatHistory + Default> Coordinator<C> {
                     .map_err(crate::error::ToolCallError::InternalToolError)?;
 
                 if self.debug {
-                    eprintln!("Tool result: {}", tool_result);
+                    eprintln!("Tool result: {tool_result}");
                 }
 
                 react_step = react_step.add_observation(tool_result.clone());
