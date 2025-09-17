@@ -86,6 +86,7 @@ pub struct Coordinator<C: ChatHistory + Default> {
     current_step: usize,
     max_iterations: usize,
     is_initialized: bool,
+    think: Option<bool>,
 }
 
 impl<C: ChatHistory + Default> Coordinator<C> {
@@ -106,6 +107,7 @@ impl<C: ChatHistory + Default> Coordinator<C> {
             current_step: 0,
             max_iterations: 10,
             is_initialized: false,
+            think: None,
         }
     }
 
@@ -149,6 +151,12 @@ impl<C: ChatHistory + Default> Coordinator<C> {
     /// Sets the maximum number of iterations
     pub fn max_iterations(mut self, max_iterations: usize) -> Self {
         self.max_iterations = max_iterations;
+        self
+    }
+
+    /// Sets thinking mode on/off
+    pub fn think(mut self, think: bool) -> Self {
+        self.think = Some(think);
         self
     }
 
@@ -203,6 +211,10 @@ impl<C: ChatHistory + Default> Coordinator<C> {
 
         if let Some(keep_alive) = &self.keep_alive {
             request = request.keep_alive(keep_alive.clone());
+        }
+
+        if let Some(think) = self.think {
+            request = request.think(think);
         }
 
         // Only apply format if no tools or after tool execution
